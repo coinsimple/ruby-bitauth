@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'bitauth'
 
 Gem::Specification.new do |spec|
-  spec.name          = "BitAuth"
+  spec.name          = "bitauth"
   spec.version       = BitAuth::VERSION
   spec.authors       = ["Gabriel Manricks"]
   spec.email         = ["gmanricks@gmail.com"]
