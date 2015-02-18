@@ -1,7 +1,7 @@
 require "openssl"
 
 class BitAuth
-  VERSION = "0.0.2"
+  VERSION = "0.0.3"
 
   attr_accessor :sin, :public_key, :private_key
 
@@ -26,7 +26,7 @@ class BitAuth
     ecdsa = OpenSSL::PKey::EC.new('secp256k1')
     ecdsa.private_key = OpenSSL::BN.new private_key, 16
 
-    ecdsa.dsa_sign_asn1(hash).unpack('H*')[0]
+    ecdsa.dsa_sign_asn1([hash].pack('H*')).unpack('H*')[0]
   end
 
   def verify(data, sig)
@@ -36,7 +36,7 @@ class BitAuth
     pub = OpenSSL::PKey::EC::Point.new(ecdsa.group, OpenSSL::BN.new(public_key, 16))
 
     ecdsa.public_key = pub
-    ecdsa.dsa_verify_asn1(hash, [sig].pack('H*'))
+    ecdsa.dsa_verify_asn1([hash].pack('H*'), [sig].pack('H*'))
   rescue
     false
   end
